@@ -2,17 +2,15 @@
 export CC  = gcc
 export CXX = g++
 export NVCC =nvcc
+export PKG_CONFIG_PATH=/exports/work/scratch/dbnet/opencv/lib/pkgconfig
 
-export CFLAGS = -Wall -g -O3 -msse3 -Wno-unknown-pragmas -funroll-loops -I./mshadow/ -I/exports/work/scratch/dbnet/opencv-2.4.10/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/androidcamera/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/dynamicuda/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/imgproc/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/objdetect/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/stitching/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/viz/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/calib3d/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/features2d/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/java/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/ocl/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/superres/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/world/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/flann/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/legacy/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/photo/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/ts/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/contrib/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/gpu/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/ml/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/python/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/video/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/core/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/highgui/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/nonfree/include/ -I/exports/work/scratch/dbnet/opencv-2.4.10/modules/videostab/include/
-
+export CFLAGS = -Wall -g -O3 -msse3 -Wno-unknown-pragmas -funroll-loops -I./mshadow/
 
 ifeq ($(blas),1)
-# LDFLAGS= -lm -lcudart -lcublas -lcurand -lz `pkg-config --libs opencv` -lblas
- LDFLAGS= -lm -lcudart -lcublas -lcurand -lz -lblas
- CFLAGS+= -DMSHADOW_USE_MKL=0 -DMSHADOW_USE_CBLAS=1 -pthread
+ LDFLAGS= -lm -lcudart -lcublas -lcurand -lz `pkg-config --libs opencv` -lblas
+ CFLAGS+= -DMSHADOW_USE_MKL=0 -DMSHADOW_USE_CBLAS=1
 else
-# LDFLAGS= -lm -lcudart -lcublas -lmkl_core -lmkl_intel_lp64 -lmkl_intel_thread -liomp5 -lpthread -lcurand -lz `pkg-config --libs opencv`
- LDFLAGS= -lm -lcudart -lcublas -lmkl_core -lmkl_intel_lp64 -lmkl_intel_thread -liomp5 -lpthread -lcurand -lz
+ LDFLAGS= -lm -lcudart -lcublas -lmkl_core -lmkl_intel_lp64 -lmkl_intel_thread -liomp5 -lpthread -lcurand -lz `pkg-config --libs opencv`
 endif
 
 export NVCCFLAGS = --use_fast_math -g -O3 -ccbin $(CXX)
@@ -43,5 +41,3 @@ $(CUBIN) :
 
 clean:
 	$(RM) $(OBJ) $(BIN) $(CUBIN) $(CUOBJ) *~
-
-
