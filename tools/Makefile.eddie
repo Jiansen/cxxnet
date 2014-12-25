@@ -2,7 +2,7 @@
 export CC  = gcc
 export CXX = g++
 export NVCC =nvcc
-export PKG_CONFIG_PATH=/exports/work/scratch/dbnet/opencv/lib/pkgconfig
+export PKG_CONFIG_PATH=/exports/work/scratch/$USER/opencv/lib/pkgconfig
 # -I../ and -I./mshadow/ are added so that users can build im2bin in the tools folder itself
 export CFLAGS = -Wall -g -O3 -msse3 -Wno-unknown-pragmas -funroll-loops -I./mshadow/ -I/exports/applications/apps/intel/mkl/10.0.1.014/include/ -I../ -I../mshadow/ 
 
